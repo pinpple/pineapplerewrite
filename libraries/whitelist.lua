@@ -16,7 +16,7 @@ local wl = {
     }
 }
 
-Library.Connections['Text'] = function(msg: TextChatMessage): TextChatMessageProperties
+textChatService.OnIncomingMessage = function(msg: TextChatMessage): TextChatMessageProperties
     local Properties = Instance.new("TextChatMessageProperties")
 
     if msg.TextSource then
@@ -31,5 +31,3 @@ Library.Connections['Text'] = function(msg: TextChatMessage): TextChatMessagePro
 
     return Properties
 end
-
-textChatService.OnIncomingMessage = Library.Connections['Text']
