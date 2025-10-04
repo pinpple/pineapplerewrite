@@ -112,6 +112,7 @@ do
     local AuraSec = SubPages.Combat.Player:Section({Name = 'Killaura', Icon = '16095745392', Side = 2})
 
     local Aura, Anim
+    local Delay = tick()
     Aura = AuraSec:Toggle({
         Name = 'Killaura',
         Flag = 'Aura',
@@ -125,20 +126,23 @@ do
                     if plr then
                         task.spawn(function()
                             for _, v in getItem('Melee', 'table') do
-                                if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
-                                    continue
-                                end
+                                if Delay <= tick() then
+                                    Delay = tick() + 0.2
+                                    if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
+                                        continue
+                                    end
 
-                                if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
-                                    lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
-                                    lplr.Character.Humanoid:LoadAnimation(Anim):Play()
-                                end
+                                    if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
+                                        lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
+                                        lplr.Character.Humanoid:LoadAnimation(Anim):Play()
+                                    end
 
-                                if Library.Flags['Face'] == true then
-                                    lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position + 0.001, v.Character.PrimaryPart.Position.Z))
-                                end
+                                    if Library.Flags['Face'] == true then
+                                        lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(plr.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position + 0.001, plr.Character.PrimaryPart.Position.Z))
+                                    end
 
-                                replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
+                                    replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
+                                end
                             end
                         end)
                     end
