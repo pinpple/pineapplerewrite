@@ -15,7 +15,7 @@ end
 local entity = {}
 
 entity.isAlive = function(plr)
-    return (plr:FindFirstChild(plr.Name):FindFirstChildOfClass('Humanoid') and true) or false
+    return (workspace:FindFirstChild(plr.Name):FindFirstChildOfClass('Humanoid') and true) or false
 end
 
 entity.getClosestEntity = function(RANGE)
