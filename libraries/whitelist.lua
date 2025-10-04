@@ -16,15 +16,16 @@ local wl = {
     }
 }
 
-Library.Connections['Text'] = function(msg)
-	local Properties = Instance.new('TextChatMessageProperties')
-	
-	if msg.TextSource then
-        local Player = msg.TextSource.UserId
+Library.Connections['Text'] = function(msg: TextChatMessage): TextChatMessageProperties
+    local Properties = Instance.new("TextChatMessageProperties")
+
+    if msg.TextSource then
         local plr = playersService:GetPlayerByUserId(msg.TextSource.UserId)
 
-        if wl.Whitelisted[Player] then
-            Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:%s', wl.Whitelisted[Player].Color:ToHex(), wl.Whitelisted[Player].Text, plr.DisplayName, msg.PrefixText)
+        if wl.Whitelisted[msg.TextSource.UserId] and plr then
+            Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:', wl.Whitelisted[msg.TextSource.UserId].Color:ToHex(), wl.Whitelisted[msg.TextSource.UserId].Text, plr.DisplayName)
+        elseif plr then
+            Properties.PrefixText = string.format("%s:", plr.DisplayName)
         end
     end
 
