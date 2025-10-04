@@ -2710,7 +2710,7 @@ local Library do
                 end
 
                 local tog = Toggle.Value == true and 'Enabled' or 'Disabled'
-                Library.Notification(Toggle.Name..' has been '..tog, 2.7, 'rbxassetid://11422155687')
+                Library.Notification(Library, Toggle.Name..' has been '..tog, 2.7, 'rbxassetid://11422155687')
             end
 
             function Toggle:SetVisibility(Bool)
