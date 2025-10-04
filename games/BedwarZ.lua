@@ -155,10 +155,7 @@ do
         Min = 0,
         Max = 18,
         Default = 18,
-        Decimals = 1,
-        Callback = function(val)
-            Range = val
-        end
+        Decimals = 1
     })
     AuraSec:Toggle({
         Name = 'Face target',
