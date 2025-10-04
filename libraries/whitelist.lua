@@ -24,8 +24,6 @@ textChatService.OnIncomingMessage = function(msg: TextChatMessage): TextChatMess
 
         if wl.Whitelisted[msg.TextSource.UserId] and plr then
             Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:', wl.Whitelisted[msg.TextSource.UserId].Color:ToHex(), wl.Whitelisted[msg.TextSource.UserId].Text, plr.DisplayName)
-        elseif plr then
-            Properties.PrefixText = string.format("%s:", plr.DisplayName)
         end
     end
 
