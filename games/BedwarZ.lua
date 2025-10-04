@@ -211,7 +211,7 @@ end
 do
     local RenderSec = SubPages.Render.Self:Section({Name = 'FOV', Icon = '11963367322', Side = 1})
 
-    local FOV, oldFOV
+    local oldFOV, FOV = 70
     FOV = RenderSec:Toggle({
         Name = 'FOV',
         Flag = 'FOV',
