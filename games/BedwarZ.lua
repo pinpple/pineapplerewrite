@@ -129,7 +129,7 @@ do
                                     continue
                                 end
 
-                                replicatedStorage.Remotes.ItemRemotes.SwordHit:FireServer(v, plr.Character)
+                                replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
                             end
                         end)
                     end
