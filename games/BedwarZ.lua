@@ -107,7 +107,9 @@ do
 					obj:Destroy()
 				end, 'Velo')
             else
-                Library:Disconnect('Velo')
+                task.spawn(function()
+                    Library:Disconnect('Velo')
+                end)
             end
         end
     })
@@ -154,7 +156,9 @@ do
                     end
                 end, 'Aura')
             else
-                Library:Disconnect('Aura')
+                task.spawn(function()
+                    Library:Disconnect('Aura')
+                end)
             end
         end
     })
@@ -196,7 +200,9 @@ do
                     end
                 end, 'Speed')
             else
-                Library:Disconnect('Speed')
+                task.spawn(function()
+                    Library:Disconnect('Speed')
+                end)
             end
         end
     })
@@ -204,8 +210,8 @@ do
         Name = 'Speed',
         Flag = 'SpeedVal',
         Min = 0,
-        Max = 22,
-        Default = 22,
+        Max = 23,
+        Default = 23,
         Decimals = 1
     })
 end
@@ -247,9 +253,15 @@ do
                     end
                 end, 'Flight')
             else
-                Library:Disconnect('InputBeganFly')
-                Library:Disconnect('InputEndedFly')
-                Library:Disconnect('Flight')
+                task.spawn(function()
+                    Library:Disconnect('InputBeganFly')
+                end)
+                task.spawn(function()
+                    Library:Disconnect('InputEndedFly')
+                end)
+                task.spawn(function()
+                    Library:Disconnect('Flight')
+                end)
             end
         end
     })
@@ -285,7 +297,9 @@ do
                     workspace.CurrentCamera.FieldOfView = Library.Flags['FOVVal']
                 end, 'FOV')
             else
-                Library:Disconnect('FOV')
+                task.spawn(function()
+                    Library:Disconnect('FOV')
+                end)
                 workspace.CurrentCamera.FieldOfView = oldFOV
             end
         end
