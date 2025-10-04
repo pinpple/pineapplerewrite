@@ -135,7 +135,6 @@ do
                                 end
 
                                 if Library.Flags['Face'] == true then
-                                    local selfpos = lplr.Character.PrimaryPart.Position
                                     lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position + 0.001, v.Character.PrimaryPart.Position.Z))
                                 end
 
