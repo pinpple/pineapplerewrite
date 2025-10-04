@@ -253,6 +253,14 @@ do
             end
         end
     })
+    Fly:Keybind({
+        Flag = "Keybind",
+        Default = Enum.KeyCode.Q,
+        Mode = "Toggle",
+        Callback = function(Value)
+            Fly:Set(Value)
+        end
+    })
     FlightSec:Slider({
         Name = 'Vertical Speed',
         Flag = 'Vertical',
