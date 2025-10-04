@@ -571,7 +571,6 @@ local Library do
     Library.Unload = function(self)
         for Index, Value in self.Connections do 
             Value.Connection:Disconnect()
-            Value.Connection = nil
         end
 
         for Index, Value in self.Threads do 
@@ -646,7 +645,6 @@ local Library do
         for _, Connection in self.Connections do 
             if Connection.Name == Name then
                 Connection.Connection:Disconnect()
-                Connection.Connection = nil
                 break
             end
         end
