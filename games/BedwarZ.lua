@@ -107,9 +107,7 @@ do
 					obj:Destroy()
 				end, 'Velo')
             else
-                task.spawn(function()
-                    Library:Disconnect('Velo')
-                end)
+                Library:Disconnect('Velo')
             end
         end
     })
@@ -156,9 +154,7 @@ do
                     end
                 end, 'Aura')
             else
-                task.spawn(function()
-                    Library:Disconnect('Aura')
-                end)
+                Library:Disconnect('Aura')
             end
         end
     })
@@ -200,9 +196,7 @@ do
                     end
                 end, 'Speed')
             else
-                task.spawn(function()
-                    Library:Disconnect('Speed')
-                end)
+                Library:Disconnect('Speed')
             end
         end
     })
@@ -230,9 +224,7 @@ do
                     workspace.CurrentCamera.FieldOfView = Library.Flags['FOVVal']
                 end, 'FOV')
             else
-                task.spawn(function()
-                    Library:Disconnect('FOV')
-                end)
+                Library:Disconnect('FOV')
                 workspace.CurrentCamera.FieldOfView = oldFOV
             end
         end
