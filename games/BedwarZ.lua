@@ -35,6 +35,9 @@ Library:CreateSettingsPage(Window)
 local SubPages = {
     Combat = {
         Player = Pages.Combat:SubPage({Name = 'Player'})
+    },
+    Player = {
+        Movement = Pages.Player:SubPage({Name = 'Movement'})
     }
 }
 
@@ -169,6 +172,34 @@ do
     AuraSec:Toggle({
         Name = 'Hand check',
         Flag = 'Item'
+    })
+end
+
+do
+    local SpeedSec = SubPages.Player.Movement:Section({Name = 'Speed', Icon = '136879043989014', Side = 1})
+
+    local Speed
+    Speed = SpeedSec:Toggle({
+        Name = 'Speed',
+        Flag = 'Speed',
+        Callback = function(callback)
+            if callback then
+                Library:Connect(runService.Stepped, function(delta)
+                    if entity.isAlive(lplr) then
+                        local val = (Library.Flags['SpeedVal'] - lplr.Character.Humanoid.WalkSpeed)
+                        lplr.Character.PrimaryPart.CFrame += (lplr.Character.Humanoid.MoveDirection * val * delta)
+                    end
+                end)
+            end
+        end
+    })
+    SpeedSec:Slider({
+        Name = 'Speed',
+        Flag = 'SpeedVal',
+        Min = 0,
+        Max = 22,
+        Default = 22,
+        Decimals = 1
     })
 end
 
