@@ -130,9 +130,7 @@ do
                                 end
 
                                 if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
-                                    if Anim.IsPlaying then
-                                        lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
-                                    end
+                                    lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
                                     lplr.Character.Humanoid:LoadAnimation(Anim):Play()
                                 end
 
