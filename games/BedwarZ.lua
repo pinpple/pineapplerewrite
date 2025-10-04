@@ -124,8 +124,8 @@ do
 
                     if plr then
                         task.spawn(function()
-                            for _, v in getItem('Swords', 'table') do
-                                if Library.Flags['Item'] == true and not getItem('Swords', 'tog') then
+                            for _, v in getItem('Melee', 'table') do
+                                if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
                                     continue
                                 end
 
