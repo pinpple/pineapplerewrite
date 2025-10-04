@@ -2,7 +2,7 @@ local cloneref = cloneref or function(obj)
     return obj
 end
 
-local Library = loadfile('pineapple/gui/interface.lua')
+local Library = loadfile('pineapple/gui/interface.lua')()
 local Window = Library:Window({Name = 'Pineapple'})
 Window:Category('Main')
 
