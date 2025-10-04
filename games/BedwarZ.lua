@@ -111,23 +111,27 @@ do
     local AuraSec = SubPages.Combat.Player:Section({Name = 'Killaura', Icon = '16095745392', Side = 2})
 
     local Aura, AuraConn
+    local Range = 18
+    local Item = false
     Aura = AuraSec:Toggle({
         Name = 'Killaura',
         Flag = 'Aura',
         Callback = function(callback)
             if callback then
-                local plr = entity.getClosestEntity(Library.Flags['Range'])
+                Library:Connect(runService.PreSimulation, function()
+                    local plr = entity.getClosestEntity(Library.Flags['Range'])
 
-                if plr then
-                    task.spawn(function()
-                        for _, v in getItem('Swords', 'table') do
-                            if Library.Flags['Item'] == true and not getItem('Swords', 'tog') then
-                                continue
+                    if plr then
+                        task.spawn(function()
+                            for _, v in getItem('Swords', 'table') do
+                                if Library.Flags['Item'] == true and not getItem('Swords', 'tog') then
+                                    continue
+                                end
+
+                                replicatedStorage.Remotes.ItemRemotes.SwordHit:FireServer(v, plr.Character)
                             end
-
-                            replicatedStorage.Remotes.ItemRemotes.SwordHit:FireServer(v, plr.Character)
-                        end
-                    end)
+                        end)
+                    end
                 end
             end
         end
@@ -138,11 +142,17 @@ do
         Min = 0,
         Max = 18,
         Default = 18,
-        Decimals = 1
+        Decimals = 1,
+        Callback = function(val)
+            Range = val
+        end
     })
     AuraSec:Toggle({
         Name = 'Hand check',
-        Flag = 'Item'
+        Flag = 'Item',
+        Callback = function(callback)
+            Item = callback
+        end
     })
 end
 
