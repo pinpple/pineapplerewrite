@@ -40,6 +40,7 @@ local SubPages = {
 
 -- Functions
 
+local items
 do
 	items = {
 		Melee = {'Wooden Sword', 'Stone Sword', 'Iron Sword', 'Diamond Sword', 'Emerald Sword'},

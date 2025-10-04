@@ -31,6 +31,7 @@ entity.getClosestEntity = function(RANGE)
 
     for i,v in playersService:GetPlayers() do
         if v == lplr then continue end
+        if not entity.isAlive(v) then continue end
 
         local DIST = lplr:DistanceFromCharacter(v.Character.PrimaryPart.Position)
         if entity.isAlive(v) and (DIST <= RANGE and DIST <= closestDist) and teamCheck(v) and lplr:GetAttribute('PVP') then
