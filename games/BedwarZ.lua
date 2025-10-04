@@ -111,14 +111,14 @@ end
 do
     local AuraSec = SubPages.Combat.Player:Section({Name = 'Killaura', Icon = '16095745392', Side = 2})
 
-    local Aura, AuraConn
-    local Range = 18
-    local Item = false
+    local Aura, Anim
     Aura = AuraSec:Toggle({
         Name = 'Killaura',
         Flag = 'Aura',
         Callback = function(callback)
             if callback then
+                Anim = Instance.new('Animation')
+                Anim.AnimationId = 'rbxassetid://123800159244236'
                 Library:Connect(runService.PreSimulation, function()
                     local plr = entity.getClosestEntity(Library.Flags['Range'])
 
@@ -127,6 +127,18 @@ do
                             for _, v in getItem('Melee', 'table') do
                                 if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
                                     continue
+                                end
+
+                                if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
+                                    if Anim.IsPlaying then
+                                        lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
+                                    end
+                                    lplr.Character.Humanoid:LoadAnimation(Anim):Play()
+                                end
+
+                                if Library.Flags['Face'] == true then
+                                    local selfpos = lplr.Character.PrimaryPart.Position
+                                    lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(selfpos, Vector3.new(selfpos.X, selfpos.Y + 0.001, selfpos.Z))
                                 end
 
                                 replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
@@ -149,11 +161,16 @@ do
         end
     })
     AuraSec:Toggle({
+        Name = 'Face target',
+        Flag = 'Face'
+    })
+    AuraSec:Toggle({
+        Name = 'Swing',
+        Flag = 'Swing'
+    })
+    AuraSec:Toggle({
         Name = 'Hand check',
-        Flag = 'Item',
-        Callback = function(callback)
-            Item = callback
-        end
+        Flag = 'Item'
     })
 end
 
