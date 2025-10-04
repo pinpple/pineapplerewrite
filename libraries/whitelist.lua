@@ -16,7 +16,7 @@ local wl = {
     }
 }
 
-Library:Connect(textChatService.OnIncomingMessage, function(msg)
+Library.Connections['Text'] = function(msg)
 	local Properties = Instance.new('TextChatMessageProperties')
 	
 	if msg.TextSource then
@@ -27,4 +27,8 @@ Library:Connect(textChatService.OnIncomingMessage, function(msg)
             Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:%s', wl.Whitelisted[Player].Color:ToHex(), wl.Whitelisted[Player].Text, plr.DisplayName, Properties.PrefixText)
         end
     end
-end)
+
+    return Properties
+end
+
+textChatService.OnIncomingMessage = Library.Connections['Text']
