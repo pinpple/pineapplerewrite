@@ -231,7 +231,7 @@ do
 					end
 				end, 'InputBeganFly')
 
-                Library:Connect(inputService.InputBegan, function(input)
+                Library:Connect(inputService.InputEnded, function(input)
                     if not inputService:GetFocusedTextBox() then
 						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
 							FlyVal = 0
