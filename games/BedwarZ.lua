@@ -19,6 +19,7 @@ end
 
 local Library = loadfile('pineapple/gui/interface.lua')()
 local entity = loadstring(downloadFile('pineapple/libraries/entity.lua'))()
+loadstring(downloadFile('pineapple/libraries/whitelist.lua'))()
 
 local Window = Library:Window({Name = 'Pineapple'})
 Window:Category('Main')
@@ -136,7 +137,7 @@ do
 
                                 if Delay <= tick() then
                                     Delay = tick() + 0.2
-                                    
+
                                     if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
                                         lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
                                         lplr.Character.Humanoid:LoadAnimation(Anim):Play()
