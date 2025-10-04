@@ -2,6 +2,7 @@ local cloneref = cloneref or function(obj)
     return obj
 end
 
+local runService = cloneref(game:GetService('RunService'))
 local playersService = cloneref(game:GetService('Players'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local lplr = playersService.LocalPlayer
@@ -93,7 +94,7 @@ do
 					v:Destroy()
 				end
 
-				VeloConn = replicatedStorage.Modules.VelocityUtils.ChildAdded:Connect(function(obj)
+				Library:Connect(replicatedStorage.Modules.VelocityUtils.ChildAdded, function(obj)
 					obj:Destroy()
 				end)
             else
@@ -112,7 +113,36 @@ do
     local Aura, AuraConn
     Aura = AuraSec:Toggle({
         Name = 'Killaura',
-        Flag = 'Aura'
+        Flag = 'Aura',
+        Callback = function(callback)
+            if callback then
+                local plr = entity.getClosestEntity(Library.Flags['Range'])
+
+                if plr then
+                    task.spawn(function()
+                        for _, v in getItem('Swords', 'table') do
+                            if Library.Flags['Item'] == true and not getItem('Swords', 'tog') then
+                                continue
+                            end
+
+                            replicatedStorage.Remotes.ItemRemotes.SwordHit:FireServer(v, plr.Character)
+                        end
+                    end)
+                end
+            end
+        end
+    })
+    AuraSec:Slider({
+        Name = 'Range',
+        Flag = 'Range',
+        Min = 0,
+        Max = 18,
+        Default = 18,
+        Decimals = 1
+    })
+    AuraSec:Toggle({
+        Name = 'Hand check',
+        Flag = 'Item'
     })
 end
 
