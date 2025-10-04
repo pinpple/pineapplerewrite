@@ -5,6 +5,7 @@ end
 local runService = cloneref(game:GetService('RunService'))
 local playersService = cloneref(game:GetService('Players'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+local inputService = cloneref(game:GetService('UserInputService'))
 local lplr = playersService.LocalPlayer
 
 local function downloadFile(file)
@@ -138,12 +139,12 @@ do
                                     Delay = tick() + 0.2
 
                                     if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
-                                        lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
-                                        lplr.Character.Humanoid:LoadAnimation(Anim):Play()
+                                        lplr.Character.Humanoid.Animator:LoadAnimation(Anim):Stop()
+                                        lplr.Character.Humanoid.Animator:LoadAnimation(Anim):Play()
                                     end
 
                                     if Library.Flags['Face'] == true then
-                                        lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(plr.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position.Y + 0.001, plr.Character.PrimaryPart.Position.Z))
+                                        lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(plr.Character.PrimaryPart.Position.X, plr.Character.PrimaryPart.Position.Y + 0.001, plr.Character.PrimaryPart.Position.Z))
                                     end
 
                                     replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
@@ -210,9 +211,62 @@ do
 end
 
 do
+    local FlightSec = SubPages.Player.Movement:Section({Name = 'Fly', Icon = '136879043989014', Side = 2})
+
+    local FlyVal, Fly = 0
+    Fly = FlightSec:Toggle({
+        Name = 'Fly',
+        Flags = 'Flight',
+        Callback = function(callback)
+            if callback then
+                FlyVal = 0
+
+                Library:Connect(inputService.InputBegan, function(input)
+                    if not inputService:GetFocusedTextBox() then
+						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+							FlyVal = Library.Flags['Vertical']
+						elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+							FlyVal = -Library.Flags['Vertical']
+						end
+					end
+				end, 'InputBeganFly')
+
+                Library:Connect(inputService.InputBegan, function(input)
+                    if not inputService:GetFocusedTextBox() then
+						if input.KeyCode == Enum.KeyCode.Space or input.KeyCode == Enum.KeyCode.ButtonA then
+							FlyVal = 0
+						elseif input.KeyCode == Enum.KeyCode.LeftShift or input.KeyCode == Enum.KeyCode.ButtonL2 then
+							FlyVal = 0
+						end
+					end
+				end, 'InputEndedFly')
+
+                Library:Connect(runService.RenderStepped, function()
+                    if entity.isAlive(lplr) then
+                        lplr.Character.PrimaryPart.Velocity = Vector3.new(lplr.Character.PrimaryPart.Velocity.X, FlyVal, lplr.Character.PrimaryPart.Velocity.Z)
+                    end
+                end, 'Flight')
+            else
+                Library:Disconnect('InputBeganFly')
+                Library:Disconnect('InputEndedFly')
+                Library:Disconnect('Flight')
+            end
+        end
+    })
+    FlightSec:Slider({
+        Name = 'Vertical Speed',
+        Flag = 'Vertical',
+        Min = 0,
+        Max = 150,
+        Default = 44,
+        Decimals = 1
+    })
+end
+
+do
     local RenderSec = SubPages.Render.Self:Section({Name = 'FOV', Icon = '11963367322', Side = 1})
 
-    local oldFOV, FOV = 70
+    local oldFOV, FOV = workspace.CurrentCamera.FieldOfView
     FOV = RenderSec:Toggle({
         Name = 'FOV',
         Flag = 'FOV',
