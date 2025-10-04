@@ -38,6 +38,10 @@ local SubPages = {
     },
     Player = {
         Movement = Pages.Player:SubPage({Name = 'Movement'})
+    },
+    Render = {
+        Self = Pages.Render:SubPage({Name = 'Self'}),
+        Enemies = Pages.Render:SubPage({Name = 'Enemies'})
     }
 }
 
@@ -100,12 +104,9 @@ do
 
 				Library:Connect(replicatedStorage.Modules.VelocityUtils.ChildAdded, function(obj)
 					obj:Destroy()
-				end)
+				end, 'Velo')
             else
-                if VeloConn then
-                    VeloConn:Disconnect()
-                    VeloConn = nil
-                end
+                Library:Disconnect('Velo')
             end
         end
     })
@@ -149,7 +150,9 @@ do
                             end
                         end)
                     end
-                end)
+                end, 'Aura')
+            else
+                Library:Disconnect('Aura')
             end
         end
     })
@@ -184,12 +187,14 @@ do
         Flag = 'Speed',
         Callback = function(callback)
             if callback then
-                Library:Connect(runService.Stepped, function(delta)
+                Library:Connect(runService.PreSimulation, function(delta)
                     if entity.isAlive(lplr) then
-                        local val = (Library.Flags['SpeedVal'] - lplr.Character.Humanoid.WalkSpeed)
-                        lplr.Character.PrimaryPart.CFrame = lplr.Character.PrimaryPart.CFrame + (lplr.Character.Humanoid.MoveDirection * val * delta)
+                        local speedVal = (Library.Flags['SpeedVal'] - lplr.Character.Humanoid.WalkSpeed)
+                        lplr.Character.PrimaryPart.CFrame += (lplr.Character.Humanoid.MoveDirection * speedVal * delta)
                     end
-                end)
+                end, 'Speed')
+            else
+                Library:Disconnect('Speed')
             end
         end
     })
@@ -199,6 +204,35 @@ do
         Min = 0,
         Max = 22,
         Default = 22,
+        Decimals = 1
+    })
+end
+
+do
+    local RenderSec = SubPages.Render.Self:Section({Name = 'FOV', Icon = '11963367322', Side = 1})
+
+    local FOV, oldFOV
+    FOV = RenderSec:Toggle({
+        Name = 'FOV',
+        Flag = 'FOV',
+        Callback = function(callback)
+            if callback then
+                oldFOV = workspace.CurrentCamera.FieldOfView
+                Library:Connect(runService.RenderStepped, function()
+                    workspace.CurrentCamera.FieldOfView = Library.Flags['FOVVal']
+                end, 'FOV')
+            else
+                Library:Disconnect('FOV')
+                workspace.CurrentCamera.FieldOfView = oldFOV
+            end
+        end
+    })
+    RenderSec:Slider({
+        Name = 'FOV',
+        Flag = 'FOVVal',
+        Min = 30,
+        Max = 120,
+        Default = 120,
         Decimals = 1
     })
 end
