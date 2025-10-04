@@ -4,7 +4,7 @@ end
 local httpService = cloneref(game:GetService('HttpService'))
 
 local function wipeFolders()
-    for _, v in {'pineapple', 'pineapple/games', 'pineapple/gui'} do
+    for _, v in {'pineapple', 'pineapple/games', 'pineapple/gui', 'pineapple/libraries'} do
         if isfolder(v) then
             for x, d in listfiles(v) do
                 if string.find(d, 'commit.txt') then continue end
