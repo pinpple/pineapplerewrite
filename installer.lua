@@ -31,7 +31,7 @@ local function downloadFile(file, read)
     return readfile(file)
 end
 
-for _, v in {'pineapple', 'pineapple/games', 'pineapple/gui', 'pineapple/assets', 'pineapple/configs'} do
+for _, v in {'pineapple', 'pineapple/games', 'pineapple/gui', 'pineapple/assets', 'pineapple/configs', 'pineapple/libraries'} do
     if not isfolder(v) then
         makefolder(v)
     end
