@@ -2708,6 +2708,9 @@ local Library do
                 if Toggle.Callback then 
                     Library:SafeCall(Toggle.Callback, Toggle.Value)
                 end
+
+                local tog = Toggle.Value == true and 'Enabled' or 'Disabled'
+                Library.Notification(Toggle.Name..' has been '..tog, 2.7, 'rbxassetid://11422155687')
             end
 
             function Toggle:SetVisibility(Bool)

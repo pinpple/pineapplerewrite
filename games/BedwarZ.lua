@@ -247,4 +247,4 @@ do
     })
 end
 
-Library:Notification('Pineapple loaded', 5, '14225167795')
+Library:Notification('Pineapple loaded', 7, '14225167795')
