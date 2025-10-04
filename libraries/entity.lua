@@ -29,7 +29,7 @@ entity.getClosestEntity = function(RANGE)
         if v == lplr then continue end
 
         local DIST = lplr:DistanceFromCharacter(v.Character.PrimaryPart.Position)
-        if entity.isAlive(v) and (DIST <= RANGE and dist <= closestDist) and teamCheck(v) and lplr:GetAttribute('PVP') then
+        if entity.isAlive(v) and (DIST <= RANGE and DIST <= closestDist) and teamCheck(v) and lplr:GetAttribute('PVP') then
             closestEntity = v
             closestDist = RANGE
         end
