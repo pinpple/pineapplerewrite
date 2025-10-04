@@ -136,7 +136,7 @@ do
 
                                 if Library.Flags['Face'] == true then
                                     local selfpos = lplr.Character.PrimaryPart.Position
-                                    lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(selfpos, Vector3.new(selfpos.X, selfpos.Y + 0.001, selfpos.Z))
+                                    lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(v.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position + 0.001, v.Character.PrimaryPart.Position.Z))
                                 end
 
                                 replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
