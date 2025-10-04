@@ -187,7 +187,7 @@ do
                 Library:Connect(runService.Stepped, function(delta)
                     if entity.isAlive(lplr) then
                         local val = (Library.Flags['SpeedVal'] - lplr.Character.Humanoid.WalkSpeed)
-                        lplr.Character.PrimaryPart.CFrame += (lplr.Character.Humanoid.MoveDirection * val * delta)
+                        lplr.Character.PrimaryPart.CFrame = lplr.Character.PrimaryPart.CFrame + (lplr.Character.Humanoid.MoveDirection * val * delta)
                     end
                 end)
             end
