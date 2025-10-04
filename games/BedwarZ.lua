@@ -63,7 +63,7 @@ local function getItem(type, returnval)
 
 	for i, v in items[type] do 
 		local tool = getTool(v)
-		if entitylib.isAlive then
+		if entity.isAlive(lplr) then
 			if returnval == 'tog' and tool then
 				return true
 			elseif returnval == 'table' and (hasTool(v) or tool) then
