@@ -15,7 +15,11 @@ end
 local entity = {}
 
 entity.isAlive = function(plr)
-    return (workspace:FindFirstChild(plr.Name):FindFirstChildOfClass('Humanoid') and true) or false
+    local suc, res = pcall(function()
+        return plr.Character:FindFirstChildOfClass('Humanoid')
+    end)
+
+    return suc and res and res.Health > 0
 end
 
 entity.getClosestEntity = function(RANGE)
@@ -31,7 +35,7 @@ entity.getClosestEntity = function(RANGE)
         local DIST = lplr:DistanceFromCharacter(v.Character.PrimaryPart.Position)
         if entity.isAlive(v) and (DIST <= RANGE and DIST <= closestDist) and teamCheck(v) and lplr:GetAttribute('PVP') then
             closestEntity = v
-            closestDist = RANGE
+            closestDist = DIST
         end
     end
 
