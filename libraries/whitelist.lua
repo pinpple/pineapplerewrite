@@ -24,7 +24,7 @@ Library.Connections['Text'] = function(msg)
         local plr = playersService:GetPlayerByUserId(msg.TextSource.UserId)
 
         if wl.Whitelisted[Player] then
-            Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:%s', wl.Whitelisted[Player].Color:ToHex(), wl.Whitelisted[Player].Text, plr.DisplayName, Properties.PrefixText)
+            Properties.PrefixText = string.format('<font color="#%s">[%s]</font> %s:%s', wl.Whitelisted[Player].Color:ToHex(), wl.Whitelisted[Player].Text, plr.DisplayName, msg.PrefixText)
         end
     end
 
