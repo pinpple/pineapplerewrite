@@ -47,5 +47,5 @@ end
 
 repeat task.wait() until isfile('pineapple/commit.txt')
 
-downloadFile('pineapple/gui/pineapple.lua', false)
+downloadFile('pineapple/gui/interface.lua', false)
 loadstring(downloadFile('pineapple/main.lua'))()
