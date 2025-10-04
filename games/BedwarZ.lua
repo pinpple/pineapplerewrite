@@ -255,9 +255,11 @@ do
             else
                 task.spawn(function()
                     Library:Disconnect('InputBeganFly')
+                    FlyVal = 0
                 end)
                 task.spawn(function()
                     Library:Disconnect('InputEndedFly')
+                    FlyVal = 0
                 end)
                 task.spawn(function()
                     Library:Disconnect('Flight')
