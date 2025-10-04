@@ -4,6 +4,7 @@ end
 
 local playersService = cloneref(game:GetService('Players'))
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
+local lplr = playersService.LocalPlayer
 
 local function downloadFile(file)
     url = file:gsub('pineapple/', '')
@@ -36,6 +37,48 @@ local SubPages = {
     }
 }
 
+-- Functions
+
+do
+	items = {
+		Melee = {'Wooden Sword', 'Stone Sword', 'Iron Sword', 'Diamond Sword', 'Emerald Sword'},
+		Pickaxes = {'Wooden Pickaxe', 'Stone Pickaxe', 'Iron Pickaxe', 'Diamond Pickaxe'}
+	}
+end
+
+local function hasTool(v)
+    return lplr.Backpack and lplr.Backpack:FindFirstChild(v)
+end
+
+local function getTool(tool: string): string?
+	return workspace.PlayersContainer:FindFirstChild(lplr.Name):FindFirstChild(tool)
+	--return lplr.Character and lplr.Character:FindFirstChildWhichIsA('Tool', true) or nil
+end
+
+local function getItem(type, returnval)
+	local tog = {}
+	if not returnval then
+		error('No return value')
+	end
+
+	for i, v in items[type] do 
+		local tool = getTool(v)
+		if entitylib.isAlive then
+			if returnval == 'tog' and tool then
+				return true
+			elseif returnval == 'table' and (hasTool(v) or tool) then
+				tog[i] = v
+			end
+		end
+	end
+
+	if returnval == 'tog' then
+		return false
+	end
+
+	return tog
+end
+
 -- Velocity
 do
     local VeloSec = SubPages.Combat.Player:Section({Name = 'Velocity', Icon = '136879043989014', Side = 1})
@@ -60,6 +103,16 @@ do
                 end
             end
         end
+    })
+end
+
+do
+    local AuraSec = SubPages.Combat.Player:Section({Name = 'Killaura', Icon = '16095745392', Side = 2})
+
+    local Aura, AuraConn
+    Aura = AuraSec:Toggle({
+        Name = 'Killaura',
+        Flag = 'Aura'
     })
 end
 
