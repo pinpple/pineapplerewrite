@@ -130,12 +130,13 @@ do
                     if plr then
                         task.spawn(function()
                             for _, v in getItem('Melee', 'table') do
+                                if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
+                                    continue
+                                end
+
                                 if Delay <= tick() then
                                     Delay = tick() + 0.2
-                                    if Library.Flags['Item'] == true and not getItem('Melee', 'tog') then
-                                        continue
-                                    end
-
+                                    
                                     if Library.Flags['Swing'] == true and getItem('Melee', 'tog') then
                                         lplr.Character.Humanoid:LoadAnimation(Anim):Stop()
                                         lplr.Character.Humanoid:LoadAnimation(Anim):Play()
