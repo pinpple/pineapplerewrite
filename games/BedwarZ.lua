@@ -19,7 +19,6 @@ end
 
 local Library = loadfile('pineapple/gui/interface.lua')()
 local entity = loadstring(downloadFile('pineapple/libraries/entity.lua'))()
-loadstring(downloadFile('pineapple/libraries/whitelist.lua'))()
 
 local Window = Library:Window({Name = 'Pineapple'})
 Window:Category('Main')
