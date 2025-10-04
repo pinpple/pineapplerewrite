@@ -74,8 +74,8 @@ do
         Name = 'Speed',
         Flag = 'SpeedVal',
         Min = 0,
-        Max = 23,
-        Default = 23,
+        Max = 150,
+        Default = 16,
         Decimals = 1
     })
 end
