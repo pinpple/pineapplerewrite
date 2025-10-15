@@ -144,10 +144,10 @@ do
                                     end
 
                                     if Library.Flags['Face'] == true then
-                                        lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(plr.Character.PrimaryPart.Position.X, plr.Character.PrimaryPart.Position.Y + 0.001, plr.Character.PrimaryPart.Position.Z))
+                                        lplr.Character.PrimaryPart.CFrame = CFrame.lookAt(lplr.Character.PrimaryPart.Position, Vector3.new(plr.Character.PrimaryPart.Position.X, lplr.Character.PrimaryPart.Position.Y + 0.001, plr.Character.PrimaryPart.Position.Z))
                                     end
 
-                                    replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(v, plr.Character)
+                                    replicatedStorage.Remotes.ItemsRemotes.SwordHit:FireServer(plr.Character, v)
                                 end
                             end
                         end)
